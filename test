@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Statistics Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Custom Component wrapper for Lucide icons to work in the browser
+        const Icon = ({ name, size = 18 }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} style={{ width: size, height: size }}></i>;
+        };
+
+        const EducationStatsTable = () => {
+            const [data, setData] = useState([
+                { grade: 'ទី១', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 46, oldF: 23, up: 46, upF: 23, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+                { grade: 'ទី២', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 48, oldF: 23, up: 48, upF: 23, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+                { grade: 'ទី៣', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 40, oldF: 18, up: 40, upF: 18, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+                { grade: 'ទី៤', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 34, oldF: 10, up: 34, upF: 10, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+                { grade: 'ទី៥', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 41, oldF: 16, up: 41, upF: 16, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+                { grade: 'ទី៦', test: { total: 0, female: 0, passed: 0, passedF: 0 }, promo: { old: 25, oldF: 12, up: 25, upF: 12, rep: 0, repF: 0, drop: 0, dropF: 0 } },
+            [span_0](start_span)]);[span_0](end_span)
+
+            [span_1](start_span)const [saved, setSaved] = useState(false);[span_1](end_span)
+            [span_2](start_span)const [submitted, setSubmitted] = useState(false);[span_2](end_span)
+
+            const updateTest = (idx, field, val) => {
+                const newData = [...data];
+                const num = parseFloat(val) || [span_3](start_span)0;[span_3](end_span)
+                [span_4](start_span)newData[idx].test[field] = num;[span_4](end_span)
+                [span_5](start_span)setData(newData);[span_5](end_span)
+                [span_6](start_span)setSaved(false);[span_6](end_span)
+            };
+
+            const updatePromo = (idx, field, val) => {
+                const newData = [...data];
+                const num = parseFloat(val) || [span_7](start_span)0;[span_7](end_span)
+                [span_8](start_span)newData[idx].promo[field] = num;[span_8](end_span)
+                [span_9](start_span)setData(newData);[span_9](end_span)
+                [span_10](start_span)setSaved(false);[span_10](end_span)
+            };
+
+            const calc = (num, denom) => denom > 0 ? [span_11](start_span)[span_12](start_span)Math.round((num / denom) * 100) : 0;[span_11](end_span)[span_12](end_span)
+
+            const tTot = data.reduce((a, r) => ({
+                total: a.total + r.test.total,
+                female: a.female + r.test.female,
+                passed: a.passed + r.test.passed,
+                passedF: a.passedF + r.test.passedF
+            [span_13](start_span)}), { total: 0, female: 0, passed: 0, passedF: 0 });[span_13](end_span)
+
+            const pTot = data.reduce((a, r) => ({
+                old: a.old + r.promo.old,
+                oldF: a.oldF + r.promo.oldF,
+                up: a.up + r.promo.up,
+                upF: a.upF + r.promo.upF,
+                rep: a.rep + r.promo.rep,
+                repF: a.repF + r.promo.repF,
+                drop: a.drop + r.promo.drop,
+                dropF: a.dropF + r.promo.dropF
+            [span_14](start_span)}), { old: 0, oldF: 0, up: 0, upF: 0, rep: 0, repF: 0, drop: 0, dropF: 0 });[span_14](end_span)
+
+            return (
+                <div className="p-4 bg-gray-50 min-h-screen">
+                    [span_15](start_span)<style>{`@media print { .no-print { display: none !important; } body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }`}</style>[span_15](end_span)
+                    <div className="max-w-full mx-auto">
+                        [span_16](start_span)<div className="no-print flex gap-3 mb-4 justify-end">[span_16](end_span)
+                            <button onClick={() => { setSaved(true); setTimeout(() => setSaved(false), 2000); }} className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white ${saved ? [span_17](start_span)'bg-green-600' : 'bg-blue-600'}`}>[span_17](end_span)
+                                <Icon name="save" />{saved ? 'រក្សាទុករួចរាល់' : 'រក្សាទុក'}
+                            </button>
+                            <button onClick={() => { setSubmitted(true); setTimeout(() => setSubmitted(false), 3000); }} className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white ${submitted ? [span_18](start_span)'bg-green-600' : 'bg-indigo-600'}`}>[span_18](end_span)
+                                <Icon name="send" />{submitted ? 'ផ្ញើរួចរាល់' : 'ផ្ញើ'}
+                            </button>
+                            [span_19](start_span)[span_20](start_span)<button onClick={() => window.print()} className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg font-medium">[span_19](end_span)[span_20](end_span)
+                                <Icon name="printer" />បោះពុម្ព
+                            </button>
+                            <button onClick={() => { if (window.confirm('តើអ្នកប្រាកដថាចង់កំណត់ទិន្នន័យឡើងវិញទេ?')) setData(data.map(r => ({...r, test: { total: 0, female: 0, passed: 0, passedF: 0 }}))); [span_21](start_span)[span_22](start_span)}} className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg font-medium">[span_21](end_span)[span_22](end_span)
+                                <Icon name="refresh-cw" />កំណត់ឡើងវិញ
+                            </button>
+                        </div>
+                        
+                        [span_23](start_span)<div className="bg-white rounded-lg shadow-lg p-4 overflow-x-auto">[span_23](end_span)
+                            <table className="w-full border-collapse text-xs">
+                                <thead>
+                                    [span_24](start_span)<tr className="bg-blue-200">[span_24](end_span)
+                                        [span_25](start_span)<td colSpan="10" className="border border-gray-400 p-2 text-center font-bold">១.ស្ថិតិសិស្សធ្វើតេស្តដើមឆ្នាំ</td>[span_25](end_span)
+                                        <td className="bg-white"></td>
+                                        [span_26](start_span)<td colSpan="17" className="border border-gray-400 p-2 text-center font-bold">២.អត្រាឡើងថ្នាក់ អត្រាត្រួតថ្នាក់ និង អត្រាបោះបង់ការសិក្សា</td>[span_26](end_span)
+                                    </tr>
+                                    {/* Sub-headers and Logic Column Headers */}
+                                    [span_27](start_span)<tr className="bg-blue-100">[span_27](end_span)
+                                        <th rowSpan="3" className="border border-gray-400 px-2 py-2">ល.រ</th>
+                                        <th rowSpan="3" className="border border-gray-400 px-2 py-2">ថ្នាក់</th>
+                                        [span_28](start_span)<th colSpan="2" className="border border-gray-400 px-2 py-2">ត្រួតសរុប</th>[span_28](end_span)
+                                        [span_29](start_span)<th colSpan="4" className="border border-gray-400 px-2 py-2">តេស្តជាប់</th>[span_29](end_span)
+                                        [span_30](start_span)<th colSpan="2" className="border border-gray-400 px-2 py-2">តេស្តធ្លាក់</th>[span_30](end_span)
+                                        <th rowSpan="3" className="bg-white"></th>
+                                        <th rowSpan="3" className="border border-gray-400 px-2 py-2">ល/រ</th>
+                                        [span_31](start_span)<th colSpan="2" rowSpan="3" className="border border-gray-400 px-2 py-2">ថ្នាក់</th>[span_31](end_span)
+                                        [span_32](start_span)<th colSpan="2" className="border border-gray-400 px-2 py-2">ដើមឆ្នាំចាស់</th>[span_32](end_span)
+                                        [span_33](start_span)<th colSpan="4" className="border border-gray-400 px-2 py-2">ឡើងថ្នាក់ ឆ្នាំថ្មី</th>[span_33](end_span)
+                                        [span_34](start_span)<th colSpan="4" className="border border-gray-400 px-2 py-2">ត្រួតថ្នាក់ ឆ្នាំថ្មី</th>[span_34](end_span)
+                                        [span_35](start_span)<th colSpan="4" className="border border-gray-400 px-2 py-2">បោះបង់រួម ឆ្នាំថ្មី</th>[span_35](end_span)
+                                    </tr>
+                                    [span_36](start_span)<tr className="bg-gray-100">[span_36](end_span)
+                                        <th className="border border-gray-400 px-1 py-1 italic" colSpan="2">រូបមន្ត</th>
+                                        <th className="border border-gray-400 px-1 py-1">1</th>
+                                        <th className="border border-gray-400 px-1 py-1">2</th>
+                                        <th className="border border-gray-400 px-1 py-1">3</th>
+                                        [span_37](start_span)<th className="border border-gray-400 px-1 py-1">4=3/1</th>[span_37](end_span)
+                                        <th className="border border-gray-400 px-1 py-1">5</th>
+                                        [span_38](start_span)<th className="border border-gray-400 px-1 py-1">6=5/2</th>[span_38](end_span)
+                                        <th className="border border-gray-400 px-1 py-1">7=1-3</th>
+                                        [span_39](start_span)<th className="border border-gray-400 px-1 py-1">8=2-5</th>[span_39](end_span)
+                                        <th className="border border-gray-400 px-1 py-1" colSpan="3"></th>
+                                        <th className="border border-gray-400 px-1 py-1">1</th>
+                                        [span_40](start_span)<th className="border border-gray-400 px-1 py-1">2</th>[span_40](end_span)
+                                        <th className="border border-gray-400 px-1 py-1">3</th>
+                                        [span_41](start_span)<th className="border border-gray-400 px-1 py-1">4=3/1</th>[span_41](end_span)
+                                        <th className="border border-gray-400 px-1 py-1">5</th>
+                                        [span_42](start_span)<th className="border border-gray-400 px-1 py-1">6=5/2</th>[span_42](end_span)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.map((row, i) => (
+                                        [span_43](start_span)<tr key={i}>[span_43](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center">{i+1}</td>
+                                            [span_44](start_span)<td className="border border-gray-400 px-2 py-1 text-center font-medium">{row.grade}</td>[span_44](end_span)
+                                            {/* Test Section */}
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">
+                                                [span_45](start_span)<input type="number" value={row.test.total} onChange={(e) => updateTest(i, 'total', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_45](end_span)
+                                            </td>
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">
+                                                [span_46](start_span)<input type="number" value={row.test.female} onChange={(e) => updateTest(i, 'female', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_46](end_span)
+                                            </td>
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">
+                                                [span_47](start_span)<input type="number" value={row.test.passed} onChange={(e) => updateTest(i, 'passed', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_47](end_span)
+                                            </td>
+                                            [span_48](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">{calc(row.test.passed, row.test.total)}</td>[span_48](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">
+                                                [span_49](start_span)<input type="number" value={row.test.passedF} onChange={(e) => updateTest(i, 'passedF', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_49](end_span)
+                                            </td>
+                                            [span_50](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">{calc(row.test.passedF, row.test.female)}</td>[span_50](end_span)
+                                            [span_51](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">{row.test.total - row.test.passed}</td>[span_51](end_span)
+                                            [span_52](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-yellow-50">{row.test.female - row.test.passedF}</td>[span_52](end_span)
+                                            <td className="bg-white"></td>
+                                            {/* Promotion Section */}
+                                            <td className="border border-gray-400 px-1 py-1 text-center">{i+1}</td>
+                                            [span_53](start_span)<td colSpan="2" className="border border-gray-400 px-2 py-1 text-center font-medium">ឡើងថ្នាក់ទី{i+2}</td>[span_53](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center">
+                                                [span_54](start_span)<input type="number" value={row.promo.old} onChange={(e) => updatePromo(i, 'old', e.target.value)} className="w-12 text-center border rounded px-1"/>[span_54](end_span)
+                                            </td>
+                                            <td className="border border-gray-400 px-1 py-1 text-center">
+                                                [span_55](start_span)<input type="number" value={row.promo.oldF} onChange={(e) => updatePromo(i, 'oldF', e.target.value)} className="w-12 text-center border rounded px-1"/>[span_55](end_span)
+                                            </td>
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-green-50">
+                                                [span_56](start_span)<input type="number" value={row.promo.up} onChange={(e) => updatePromo(i, 'up', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_56](end_span)
+                                            </td>
+                                            [span_57](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-green-50">{calc(row.promo.up, row.promo.old)}</td>[span_57](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-green-50">
+                                                [span_58](start_span)<input type="number" value={row.promo.upF} onChange={(e) => updatePromo(i, 'upF', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_58](end_span)
+                                            </td>
+                                            [span_59](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-green-50">{calc(row.promo.upF, row.promo.oldF)}</td>[span_59](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-amber-50">
+                                                [span_60](start_span)<input type="number" value={row.promo.rep} onChange={(e) => updatePromo(i, 'rep', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_60](end_span)
+                                            </td>
+                                            [span_61](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-amber-50">{calc(row.promo.rep, row.promo.old)}</td>[span_61](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-amber-50">
+                                                [span_62](start_span)<input type="number" value={row.promo.repF} onChange={(e) => updatePromo(i, 'repF', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_62](end_span)
+                                            </td>
+                                            [span_63](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-amber-50">{calc(row.promo.repF, row.promo.oldF)}</td>[span_63](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-red-50">
+                                                [span_64](start_span)<input type="number" value={row.promo.drop} onChange={(e) => updatePromo(i, 'drop', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_64](end_span)
+                                            </td>
+                                            [span_65](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-red-50">{calc(row.promo.drop, row.promo.old)}</td>[span_65](end_span)
+                                            <td className="border border-gray-400 px-1 py-1 text-center bg-red-50">
+                                                [span_66](start_span)<input type="number" value={row.promo.dropF} onChange={(e) => updatePromo(i, 'dropF', e.target.value)} className="w-12 text-center border rounded px-1 bg-white"/>[span_66](end_span)
+                                            </td>
+                                            [span_67](start_span)<td className="border border-gray-400 px-1 py-1 text-center bg-red-50">{calc(row.promo.dropF, row.promo.oldF)}</td>[span_67](end_span)
+                                        </tr>
+                                    ))}
+                                    {/* Totals Row */}
+                                    [span_68](start_span)<tr className="bg-blue-100 font-bold">[span_68](end_span)
+                                        [span_69](start_span)<td colSpan="2" className="border border-gray-400 px-2 py-2 text-center">សរុប</td>[span_69](end_span)
+                                        [span_70](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.total}</td>[span_70](end_span)
+                                        [span_71](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.female}</td>[span_71](end_span)
+                                        [span_72](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.passed}</td>[span_72](end_span)
+                                        [span_73](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{calc(tTot.passed, tTot.total)}</td>[span_73](end_span)
+                                        [span_74](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.passedF}</td>[span_74](end_span)
+                                        [span_75](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{calc(tTot.passedF, tTot.female)}</td>[span_75](end_span)
+                                        [span_76](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.total - tTot.passed}</td>[span_76](end_span)
+                                        [span_77](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{tTot.female - tTot.passedF}</td>[span_77](end_span)
+                                        <td className="bg-white"></td>
+                                        [span_78](start_span)<td colSpan="3" className="border border-gray-400 px-2 py-2 text-center">សរុប</td>[span_78](end_span)
+                                        [span_79](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{pTot.old}</td>[span_79](end_span)
+                                        [span_80](start_span)<td className="border border-gray-400 px-1 py-2 text-center">{pTot.oldF}</td>[span_80](end_span)
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.up}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.up, pTot.old)}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.upF}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.upF, pTot.oldF)}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.rep}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.rep, pTot.old)}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.repF}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.repF, pTot.oldF)}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.drop}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.drop, pTot.old)}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{pTot.dropF}</td>
+                                        <td className="border border-gray-400 px-1 py-2 text-center">{calc(pTot.dropF, pTot.oldF)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<EducationStatsTable />);
+    </script>
+</body>
+</html>
